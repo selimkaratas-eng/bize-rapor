@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>BIZE Online Performans Panosu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Yerleşim: üstte marka bandı + sekme, altında özet şeridi, sonra tek sütun bölümler; masaüstünde iki sütunlu kart ızgarası */
+/* BIZE kimliği: siyah-beyaz, iki ince çizgi arasında geniş harfli logo. Tek renk vurgu olarak sitedeki indirim kırmızısı yalnız aksiyon etiketlerinde. */
+:root{
+  --bg:#ffffff; --panel:#ffffff; --ink:#111111; --ink-2:#4a4a4a; --ink-3:#8a8a8a; --line:#e6e6e6;
+  --accent:#111111; --accent-soft:#f2f2f2; --red:#e42437;
+  --good:#1f7a4a; --good-bg:#e8f4ec; --warn:#8a5a00; --warn-bg:#fbf1dc; --bad:#c41d2f; --bad-bg:#fde8ea;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#6250d6;
+  --f-disp:"Mulish",ui-sans-serif,system-ui,sans-serif; --f-body:"Mulish",ui-sans-serif,system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --logo-filter:none;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e0e0e; --panel:#171717; --ink:#f2f2f2; --ink-2:#c4c4c4; --ink-3:#8c8c8c; --line:#2c2c2c;
+  --accent:#f2f2f2; --accent-soft:#232323; --red:#ff5a66;
+  --good:#5cc98c; --good-bg:#16291d; --warn:#e8b04a; --warn-bg:#30250f; --bad:#ff6b76; --bad-bg:#3a171b;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --logo-filter:invert(1); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e0e0e; --panel:#171717; --ink:#f2f2f2; --ink-2:#c4c4c4; --ink-3:#8c8c8c; --line:#2c2c2c;
+  --accent:#f2f2f2; --accent-soft:#232323; --red:#ff5a66;
+  --good:#5cc98c; --good-bg:#16291d; --warn:#e8b04a; --warn-bg:#30250f; --bad:#ff6b76; --bad-bg:#3a171b;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300; --s7:#9085e9; --logo-filter:invert(1); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px;display:flex;flex-direction:column;gap:28px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding-block:20px}
+.brand{display:flex;flex-direction:column;gap:4px}
+.brand .logo{height:34px;width:auto;filter:var(--logo-filter);align-self:flex-start}
+.brand .eyebrow{font:600 12px/1 var(--f-body);letter-spacing:.28em;text-transform:uppercase;color:var(--ink-2)}
+.brand h1{font:300 clamp(26px,4vw,38px)/1.15 var(--f-disp);margin:0;letter-spacing:.02em;text-wrap:balance}
+.brand p{margin:0;color:var(--ink-2);font-size:14px}
+.tabs{display:flex;gap:0;background:var(--panel);border:1px solid var(--ink);border-radius:0;padding:0}
+.tabs a{font:700 12px/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:12px 16px}
+.tabs a[aria-current="page"]{background:var(--ink);color:var(--bg)}
+.tabs a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h2{font:700 13px/1.2 var(--f-body);letter-spacing:.22em;text-transform:uppercase;margin:0;text-wrap:balance;padding-bottom:10px;border-bottom:1px solid var(--ink);flex:1 1 100%}
+h3{font:700 15px/1.3 var(--f-disp);margin:0}
+.sec{display:flex;flex-direction:column;gap:14px}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px}
+.note{color:var(--ink-3);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.kpi .lab{font:500 12px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.kpi .val{font:300 30px/1.1 var(--f-disp);font-variant-numeric:tabular-nums}
+.kpi .cmp{display:flex;flex-wrap:wrap;gap:6px;font-size:12.5px;color:var(--ink-2)}
+.chip{display:inline-flex;align-items:center;gap:4px;font:500 12px/1 var(--f-mono);padding:4px 7px;border-radius:6px;white-space:nowrap}
+.chip.up{background:var(--good-bg);color:var(--good)} .chip.down{background:var(--bad-bg);color:var(--bad)} .chip.flat{background:var(--warn-bg);color:var(--warn)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:2px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.seg button{font:500 13px/1 var(--f-body);background:var(--panel);color:var(--ink-2);border:0;padding:9px 12px;cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+select{font:500 13px var(--f-body);background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.chart{position:relative;width:100%;min-width:0}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--f-mono);font-size:11px;fill:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--ink-2)}
+.legend label{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.legend input{accent-color:var(--accent)}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font:12px/1.45 var(--f-mono);padding:8px 10px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-100%);z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.tip b{font-family:var(--f-body)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:2px;background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--panel)}
+th{font:500 11.5px/1.2 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);cursor:pointer;user-select:none}
+th[aria-sort]::after{content:" ↕";opacity:.4} th[aria-sort="descending"]::after{content:" ↓";opacity:1} th[aria-sort="ascending"]::after{content:" ↑";opacity:1}
+tr:last-child td{border-bottom:0}
+tr.tot td{font-weight:600;background:var(--accent-soft)}
+tr.tot td:first-child{background:var(--accent-soft)}
+.findings{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.findings li{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:start;background:var(--panel);border-bottom:1px solid var(--line);padding:14px 2px}
+.findings{gap:0!important}
+.findings li p{margin:0;max-width:78ch}
+.findings li strong{display:block;font-family:var(--f-disp);font-weight:700;margin-bottom:2px;color:var(--ink)}
+.tag{text-align:center;font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 7px;border-radius:6px;margin-top:2px}
+.tag.g{background:var(--good-bg);color:var(--good)} .tag.w{background:var(--warn-bg);color:var(--warn)} .tag.b{background:var(--red);color:#fff} .tag.i{background:var(--accent-soft);color:var(--accent)}
+.todo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}
+.todo ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px}
+.todo li p{margin:2px 0 0;color:var(--ink-2);font-size:14px}
+.todo li b{font-weight:700}
+.done{display:inline-block;font:500 11px/1 var(--f-mono);padding:4px 6px;background:var(--ink);color:var(--bg);margin-right:6px;vertical-align:1px}
+.prose{max-width:78ch;color:var(--ink-2);margin:0}
+.meth{font-size:13px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:6px}
+.meth p{margin:0;max-width:110ch}
+.bar-row{display:grid;grid-template-columns:minmax(110px,170px) 1fr auto;gap:10px;align-items:center;font-size:13px}
+.bar-row .trk{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.bar-row .fill{height:100%;border-radius:5px}
+.bar-row .v{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink-2)}
+@media (prefers-reduced-motion:no-preference){.fadein{animation:fi .35s ease both}@keyframes fi{from{opacity:.4}to{opacity:1}}}
+@media (max-width:560px){.tabs{width:100%}.tabs a{flex:1;text-align:center;padding:10px 8px}.kpi .val{font-size:24px}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<header class="top">
+  <div class="brand">
+    <img class="logo" alt="BIZE" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATQAAAB1CAYAAADA8h3iAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2lpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMC1jMDAwIDc5LmRhNGE3ZTVlZiwgMjAyMi8xMS8yMi0xMzo1MDowNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1QTc5NDlDMTlBNjNFQTExOTkzNEY5REREMUZDNTYxNSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFOTZGQjc4MDlDQzMxMUVEOEU3QkJENTFGMkIwQkYzQiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFOTZGQjc3RjlDQzMxMUVEOEU3QkJENTFGMkIwQkYzQiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkRERTQxMTZDQzVDOTExRUE4N0QxQkY0NThEQkU0RDYwIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkRERTQxMTZEQzVDOTExRUE4N0QxQkY0NThEQkU0RDYwIi8+IDwvcmRmOkRlc2Ny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">
+    <span class="eyebrow">Online · dijital reklam raporu</span>
+    <h1 id="pageTitle">Kasım 2026 ara raporu</h1>
+    <p id="pageSub">1-11 Kasım 2026, okuma 12 Kasım 2026 sabahı. Kaynaklar: Meta Reklam Yöneticisi, Google Ads, GA4.</p>
+  </div>
+  <nav class="tabs" aria-label="Rapor görünümü">
+    <a href="#kasim" id="tab-kasim">Kasım ara rapor</a>
+    <a href="#gidisat" id="tab-gidisat">Aylık gidişat</a>
+  </nav>
+</header>
+
+<!-- ================= KASIM ================= -->
+<main id="v-kasim" class="fadein" style="display:flex;flex-direction:column;gap:28px">
+  <section class="sec">
+    <div class="sec-head"><h2>Özet</h2><span class="note">Karşılaştırma: aynı 11 gün, Ekim 2026 ve Kasım 2025.</span></div>
+    <div class="kpis" id="kpiK"></div>
+    <p class="prose" id="kSummary"></p>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Bulgular</h2></div>
+    <ul class="findings" id="kFind"></ul>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Yorumumuz</h2></div>
+    <p class="prose">Kasım iyi başladı. Ciro geçen yılın üzerinde ve Meta katalog kampanyası işini yapıyor. Ekim'in ilk 11 gününe göre gerideyiz çünkü Ekim başında sezon sonu indirimleri ciroyu yukarı çekmişti ve Google marka aramasında 28 Ekim'de yaptığımız tasarruf ayarı dönüşümü düşürdü; bu ayarı bugün geri yükselttik. Önümüzdeki iki haftanın en önemli konusu Black Friday hazırlığı ve Meta'da yeni görsellerle sıklığı düşürmek.</p>
+  </section>
+  <section class="sec">
+    <div class="sec-head"><h2>Hesapta yaptıklarımız ve sıradakiler</h2></div>
+    <div class="todo">
+      <div class="card"><h3>Bugün yapıldı (12 Kasım)</h3><ol>
+        <li><span class="done">YAPILDI</span><b>Google marka araması:</b> tıklama başı tavan 12 TL → 18 TL.<p>Amaç en üst sırayı geri almak. Bütçe aynı, 750 TL/gün.</p></li>
+        <li><span class="done">YAPILDI</span><b>Performance Max:</b> günlük bütçe 200 TL → 100 TL.<p>Kasım'da 0 satış. Kapatmadık, harcamayı yarıya indirdik.</p></li>
+      </ol></div>
+      <div class="card"><h3>Bizim takvimimiz</h3><ol>
+        <li><b>19 Kasım:</b> marka araması ölçümü.<p>Dönüşüm ve en üst sıra payı Ekim seviyesine döndü mü.</p></li>
+        <li><b>Görseller gelince 2 iş günü içinde:</b> Meta'ya yeni kış görselleri ve Reels.<p>Hedef sıklığı 4,2'den 3'ün altına indirmek.</p></li>
+        <li><b>Black Friday haftası (27 Kasım öncesi):</b> indirim reklamları ve bütçe planı.<p>Tarih ve oranları sizden aldıktan sonra kurulur.</p></li>
+        <li><b>26 Kasım:</b> Performance Max için devam ya da durdurma önerisi.</li>
+        <li><b>1 Aralık:</b> Kasım kapanış raporu.</li>
+      </ol></div>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="sec-head"><h2>Sizden beklediklerimiz</h2></div>
+    <div class="card"><ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px">
+      <li><b>Black Friday ve Kasım indirim planı.</b> Tarihler, indirim oranları ve hangi ürün grupları. Reklamları en geç 24 Kasım'da hazır etmek istiyoruz.</li>
+      <li><b>5-10 yeni kış fotoğrafı ya da kısa video.</b> Logosuz ve yazısız, model üzerinde. Meta'da aynı görseller çok tekrar ediliyor, maliyet bu yüzden artıyor.</li>
+      <li><b>Fotoğrafı olmayan kış ürünleri.</b> 26W koleksiyonunda fotoğrafı eksik ürünler reklam kataloğuna giremiyor; fotoğraflar eklendikçe reklamlara otomatik dahil olur.</li>
+      <li><b>Toptan başvuruları nereye geliyor?</b> Form, WhatsApp ya da e-posta. Öğrenirsek London hesabındaki toptan reklamının kaç başvuru getirdiğini ölçebiliriz. Ayda kaç toptan başvurusu geldiğini paylaşmanız da yeterli olur.</li>
+      <li><b>Direct satışlardaki düşüş.</b> Kasım'ın ilk günlerinde mağaza, WhatsApp satışı ya da müşteri listesi tarafında bir değişiklik olduysa bize iletin.</li>
+      <li><b>Sitedeki bot trafiği.</b> Singapur kaynaklı otomatik ziyaretler GA4 oturumlarını şişiriyor. T-Soft tarafında bu trafiğin engellenmesini rica ediyoruz, satış rakamlarını etkilemiyor.</li>
+    </ol></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <div class="sec-head"><h3>Meta günlük harcama ve satış değeri</h3>
+        <div class="seg" id="segDaily" role="group" aria-label="Günlük metrik">
+          <button type="button" data-k="value" aria-pressed="true">Satış değeri</button>
+          <button type="button" data-k="purch" aria-pressed="false">Satış adedi</button>
+          <button type="button" data-k="roas" aria-pressed="false">ROAS</button>
+        </div></div>
+      <div class="chart" id="chDaily"></div>
+      <span class="note">Meta ana hesap, Meta'nın kendi atfı (7 gün tık, 1 gün görüntüleme). Gri çubuk harcama, renkli çizgi seçilen metrik değil; tek eksen kuralı için ikisi ayrı ölçekte iki satırda gösteriliyor.</span>
+    </div>
+    <div class="card">
+      <h3>Siteye gelen siparişler, kanal bazında (GA4)</h3>
+      <div class="controls"><div class="seg" id="segKch" role="group" aria-label="Kanal metriği">
+        <button type="button" data-k="2" aria-pressed="true">Ciro</button>
+        <button type="button" data-k="1" aria-pressed="false">Sipariş</button>
+        <button type="button" data-k="0" aria-pressed="false">Oturum</button></div></div>
+      <div id="kCh" style="display:flex;flex-direction:column;gap:9px"></div>
+      <span class="note">Son tıklama atfı. Üç dönem: <span class="sw" style="background:var(--accent)"></span> 1-11 Kas 2026, <span class="sw" style="background:var(--ink-3)"></span> 1-11 Eki 2026, <span class="sw" style="background:var(--line);outline:1px solid var(--ink-3)"></span> 1-11 Kas 2025.</span>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Hesap kırılımı, 1-11 Kasım</h2></div>
+    <div class="tbl"><table id="tKacc"></table></div>
+    <div class="tbl"><table id="tKads"></table></div>
+  </section>
+</main>
+
+<!-- ================= GIDISAT ================= -->
+<main id="v-gidisat" class="fadein" hidden style="display:flex;flex-direction:column;gap:28px">
+  <section class="sec">
+    <div class="sec-head"><h2>Dönem özeti</h2>
+      <div class="seg" id="segRange" role="group" aria-label="Dönem">
+        <button type="button" data-r="all" aria-pressed="true">Oca 2025 - Kas 2026</button>
+        <button type="button" data-r="25" aria-pressed="false">2025</button>
+        <button type="button" data-r="26" aria-pressed="false">2026 (11 Kas'a kadar)</button>
+      </div></div>
+    <div class="kpis" id="kpiG"></div>
+    <p class="prose" id="gSummary"></p>
+  </section>
+
+  <section class="card">
+    <div class="sec-head"><h3 id="gMainTitle">Aylık ciro ve reklam harcaması</h3>
+      <div class="controls">
+        <label for="selMetric" class="note">Göster</label>
+        <select id="selMetric">
+          <option value="revenue">Site cirosu (GA4)</option>
+          <option value="orders">Sipariş adedi (GA4)</option>
+          <option value="spend">Toplam reklam harcaması</option>
+          <option value="mer">Harcama verimi (ciro / harcama)</option>
+          <option value="aov">Ortalama sepet</option>
+          <option value="sessions">Oturum (GA4)</option>
+          <option value="metaRoas">Meta ROAS (Meta atfı)</option>
+          <option value="gRoas">Google ROAS (Google atfı)</option>
+        </select>
+      </div></div>
+    <div class="legend" id="lgMain"></div>
+    <div class="chart" id="chMain"></div>
+    <span class="note" id="nMain"></span>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h3>Harcama nereye gitti</h3>
+      <div class="seg" id="segSpend" role="group" aria-label="Harcama kırılımı">
+        <button type="button" data-k="acc" aria-pressed="true">Hesaba göre</button>
+        <button type="button" data-k="meta" aria-pressed="false">Meta kampanya türü</button>
+        <button type="button" data-k="goo" aria-pressed="false">Google kampanya</button>
+      </div>
+      <div class="legend" id="lgSpend"></div>
+      <div class="chart" id="chSpend"></div>
+    </div>
+    <div class="card">
+      <h3>Ciro hangi kanaldan geldi (GA4)</h3>
+      <div class="seg" id="segChM" role="group" aria-label="Kanal metriği">
+        <button type="button" data-k="2" aria-pressed="true">Ciro</button>
+        <button type="button" data-k="1" aria-pressed="false">Sipariş</button>
+        <button type="button" data-k="0" aria-pressed="false">Oturum</button>
+      </div>
+      <div class="legend" id="lgCh"></div>
+      <div class="chart" id="chCh"></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Aylık tablo</h2><span class="note">Başlığa tıklayınca sıralanır. Kasım 2026 yalnız 1-11 Kasım.</span></div>
+    <div class="controls"><div class="seg" id="segTbl" role="group" aria-label="Tablo görünümü">
+      <button type="button" data-k="ozet" aria-pressed="true">Özet</button>
+      <button type="button" data-k="meta" aria-pressed="false">Meta</button>
+      <button type="button" data-k="google" aria-pressed="false">Google</button>
+      <button type="button" data-k="ga4" aria-pressed="false">GA4 kanallar</button>
+    </div></div>
+    <div class="tbl"><table id="tMon"></table></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><h2>Dönemin hikayesi</h2></div>
+    <ul class="findings" id="gFind"></ul>
+  </section>
+</main>
+
+<footer class="meth">
+  <p><strong>Yöntem.</strong> Harcama ve platform satışları her platformun kendi panelinden, site cirosu ve siparişler GA4'ten (son tıklama) okundu. Platformlar aynı siparişi kendine yazabildiği için Meta ve Google satışları toplanmaz; toplam tablo için GA4 esas alınır. Harcama verimi = GA4 cirosu / üç hesabın toplam harcaması.</p>
+  <p>Hesaplar: Meta ana hesap (BIZE Online SEM), Meta London hesabı (toptan ve yurt dışı, satış ölçümü yok), Google Ads 614-225-3429. Tutarlar KDV hariç TL. Google dönüşümleri birkaç gün gecikmeli olgunlaşır, son günler artabilir. GA4 oturumlarında Ekim sonuna kadar Singapur kaynaklı bot trafiği var, ciro ve sipariş etkilenmez.</p>
+</footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const DATA = [{"m": "2501", "meta": {"spend": 31965, "impr": 226256, "clicks": 8757, "purch": 18, "value": 113283}, "metaGroups": {"SAT": [29343, 18, 113283], "PP": [1083, 0, 0], "TRF": [1539, 0, 0]}, "london": {"spend": 9603, "impr": 156237, "clicks": 535}, "google": {"clicks": 742, "cost": 3040.11, "impr": 4557, "conv": 2.0, "value": 18475.0}, "ga4": {"sessions": 14639, "revenue": 269949, "orders": 38, "ch": {"ps": [0, 0.0, 0], "pse": [827, 0.0, 0], "os": [5138, 12.0, 89701], "dir": [2817, 14.0, 92205], "ose": [2343, 5.0, 39516], "crs": [0, 0.0, 0], "oth": [3432, 7.0, 48527]}}}, {"m": "2502", "meta": {"spend": 18584, "impr": 130221, "clicks": 6066, "purch": 21, "value": 126763}, "metaGroups": {"SAT": [16231, 20, 125264], "TRF": [1322, 1, 1499], "PP": [961, 0, 0], "IG": [70, 0, 0]}, "london": {"spend": 7751, "impr": 92968, "clicks": 422}, "google": {"clicks": 740, "cost": 3040.21, "impr": 4210, "conv": 12.0, "value": 77916.14}, "ga4": {"sessions": 12439, "revenue": 293542, "orders": 45, "ch": {"ps": [0, 0.0, 0], "pse": [818, 7.0, 36563], "os": [4006, 5.0, 21393], "dir": [2551, 9.0, 69832], "ose": [2400, 13.0, 96931], "crs": [0, 0.0, 0], "oth": [2875, 11.0, 68824]}}}, {"m": "2503", "meta": {"spend": 22898, "impr": 195377, "clicks": 12212, "purch": 21, "value": 143995}, "metaGroups": {"SAT": [20063, 19, 133627], "TRF": [0, 0, 0], "PP": [1277, 0, 0], "IG": [1558, 2, 10369]}, "london": {"spend": 8559, "impr": 125756, "clicks": 1019}, "google": {"clicks": 599, "cost": 3040.15, "impr": 2869, "conv": 10.0, "value": 65871.0}, "ga4": {"sessions": 18888, "revenue": 604617, "orders": 71, "ch": {"ps": [39, 0.0, 0], "pse": [734, 8.0, 56898], "os": [8125, 13.0, 89334], "dir": [4613, 24.0, 267483], "ose": [3666, 18.0, 116012], "crs": [0, 0.0, 0], "oth": [1581, 8.0, 74891]}}}, {"m": "2504", "meta": {"spend": 22539, "impr": 191846, "clicks": 11681, "purch": 31, "value": 336048}, "metaGroups": {"PP": [1196, 0, 0], "SAT": [19845, 31, 336048], "IG": [1497, 0, 0]}, "london": {"spend": 8244, "impr": 96649, "clicks": 1044}, "google": {"clicks": 682, "cost": 3040.02, "impr": 3358, "conv": 10.03, "value": 83732.32}, "ga4": {"sessions": 16988, "revenue": 542658, "orders": 55, "ch": {"ps": [4522, 7.0, 123217], "pse": [781, 8.0, 67944], "os": [4521, 10.0, 115774], "dir": [2765, 10.0, 65828], "ose": [3289, 18.0, 149070], "crs": [7, 0.0, 0], "oth": [1410, 2.0, 20826]}}}, {"m": "2505", "meta": {"spend": 18612, "impr": 147738, "clicks": 9150, "purch": 16, "value": 127054}, "metaGroups": {"PP": [1231, 0, 0], "SAT": [15159, 16, 127054], "IG": [1538, 0, 0], "TOP": [684, 0, 0]}, "london": {"spend": 8497, "impr": 87157, "clicks": 977}, "google": {"clicks": 3644, "cost": 9799.86, "impr": 83279, "conv": 7.62, "value": 49839.99, "brand": {"clicks": 1474, "cost": 4362.49, "conv": 7.62, "value": 49839.99}, "pmax": {"clicks": 1427, "cost": 3931.32, "conv": 0.0, "value": 0.0}}, "ga4": {"sessions": 17416, "revenue": 452609, "orders": 39, "ch": {"ps": [4293, 5.0, 64378], "pse": [1681, 3.0, 14547], "os": [3458, 11.0, 87282], "dir": [2282, 12.0, 203037], "ose": [2676, 7.0, 73950], "crs": [1410, 0.0, 0], "oth": [1521, 1.0, 9416]}}}, {"m": "2506", "meta": {"spend": 31688, "impr": 327750, "clicks": 17463, "purch": 26, "value": 192190}, "metaGroups": {"PP": [1206, 0, 0], "SAT": [22803, 25, 186451], "IG": [1676, 1, 5739], "TOP": [6003, 0, 0]}, "london": {"spend": 7868, "impr": 84487, "clicks": 803}, "google": {"clicks": 6047, "cost": 22947.3, "impr": 196218, "conv": 11.35, "value": 80386.79, "brand": {"clicks": 1827, "cost": 4925.32, "conv": 10.35, "value": 76257.79}, "pmax": {"clicks": 1826, "cost": 11812.47, "conv": 1.0, "value": 4129.0}}, "ga4": {"sessions": 22560, "revenue": 400262, "orders": 50, "ch": {"ps": [7676, 10.0, 67489], "pse": [2158, 7.0, 53231], "os": [3807, 8.0, 93703], "dir": [2705, 11.0, 85765], "ose": [2055, 11.0, 80537], "crs": [3078, 0.0, 0], "oth": [1226, 3.0, 19537]}}}, {"m": "2507", "meta": {"spend": 23090, "impr": 254453, "clicks": 15127, "purch": 17, "value": 125011}, "metaGroups": {"PP": [1237, 0, 0], "SAT": [15480, 16, 123462], "IG": [1546, 1, 1549], "TOP": [4827, 0, 0]}, "london": {"spend": 6659, "impr": 71902, "clicks": 695}, "google": {"clicks": 3948, "cost": 14292.83, "impr": 106571, "conv": 17.5, "value": 112632.45, "brand": {"clicks": 1744, "cost": 5595.58, "conv": 16.5, "value": 102449.45}, "pmax": {"clicks": 1219, "cost": 6356.54, "conv": 1.0, "value": 10183.0}}, "ga4": {"sessions": 17892, "revenue": 606744, "orders": 66, "ch": {"ps": [6129, 7.0, 43584], "pse": [2057, 9.0, 68106], "os": [2522, 6.0, 31053], "dir": [2022, 15.0, 104794], "ose": [1981, 13.0, 114287], "crs": [1537, 0.0, 0], "oth": [1619, 16.0, 244921]}}}, {"m": "2508", "meta": {"spend": 29453, "impr": 230027, "clicks": 15475, "purch": 41, "value": 272109}, "metaGroups": {"PP": [1239, 0, 0], "SAT": [21111, 41, 272109], "IG": [1545, 0, 0], "TOP": [5557, 0, 0]}, "london": {"spend": 5575, "impr": 53210, "clicks": 628}, "google": {"clicks": 4993, "cost": 16274.02, "impr": 85676, "conv": 32.31, "value": 208026.59, "brand": {"clicks": 2004, "cost": 6348.61, "conv": 31.31, "value": 205877.59}, "pmax": {"clicks": 2355, "cost": 8627.5, "conv": 0.0, "value": 0.0}}, "ga4": {"sessions": 20316, "revenue": 641180, "orders": 87, "ch": {"ps": [6163, 20.0, 87008], "pse": [2138, 19.0, 133697], "os": [3061, 10.0, 101675], "dir": [2644, 16.0, 194957], "ose": [1843, 15.0, 70231], "crs": [2345, 3.0, 23389], "oth": [1427, 4.0, 30225]}}}, {"m": "2509", "meta": {"spend": 35816, "impr": 276297, "clicks": 15820, "purch": 58, "value": 501516}, "metaGroups": {"PP": [1521, 0, 0], "SAT": [25292, 58, 501516], "IG": [2029, 0, 0], "TOP": [6974, 0, 0]}, "london": {"spend": 2252, "impr": 8388, "clicks": 463}, "google": {"clicks": 4626, "cost": 17080.73, "impr": 76964, "conv": 23.94, "value": 162656.14, "brand": {"clicks": 1608, "cost": 6169.58, "conv": 23.94, "value": 162656.14}, "pmax": {"clicks": 3018, "cost": 10911.15, "conv": 0.0, "value": 0.0}}, "ga4": {"sessions": 20020, "revenue": 816893, "orders": 104, "ch": {"ps": [6496, 18.0, 165032], "pse": [1742, 14.0, 98545], "os": [3748, 24.0, 189847], "dir": [2109, 21.0, 151242], "ose": [1859, 16.0, 115776], "crs": [2423, 2.0, 14046], "oth": [1227, 9.0, 82405]}}}, {"m": "2510", "meta": {"spend": 60307, "impr": 534734, "clicks": 25872, "purch": 53, "value": 481362}, "metaGroups": {"PP": [3091, 0, 0], "SAT": [38653, 52, 470650], "IG": [4630, 0, 0], "TOP": [13934, 1, 10712]}, "london": {"spend": 0, "impr": 0, "clicks": 0}, "google": {"clicks": 2929, "cost": 14400.58, "impr": 54989, "conv": 29.92, "value": 296839.6, "brand": {"clicks": 1960, "cost": 6312.91, "conv": 29.92, "value": 296839.6}, "pmax": {"clicks": 969, "cost": 8087.67, "conv": 0.0, "value": 0.0}}, "ga4": {"sessions": 22703, "revenue": 881592, "orders": 94, "ch": {"ps": [8737, 24.0, 184877], "pse": [2139, 25.0, 254941], "os": [5117, 13.0, 162236], "dir": [2486, 13.0, 125575], "ose": [2050, 12.0, 110039], "crs": [896, 1.0, 2798], "oth": [1287, 6.0, 41127]}}}, {"m": "2511", "meta": {"spend": 65021, "impr": 516473, "clicks": 27366, "purch": 60, "value": 503373}, "metaGroups": {"PP": [3014, 0, 0], "SAT": [40677, 60, 503373], "IG": [5540, 0, 0], "TOP": [15790, 0, 0]}, "london": {"spend": 0, "impr": 0, "clicks": 0}, "google": {"clicks": 3031, "cost": 12819.56, "impr": 63120, "conv": 25.83, "value": 171246.53, "brand": {"clicks": 1624, "cost": 6052.55, "conv": 25.83, "value": 171246.53}, "pmax": {"clicks": 1407, "cost": 6767.01, "conv": 0.0, "value": 0.0}}, "ga4": {"sessions": 20864, "revenue": 926518, "orders": 105, "ch": {"ps": [7965, 29.0, 195934], "pse": [1737, 21.0, 158584], "os": [4061, 16.0, 159855], "dir": [2698, 19.0, 268888], "ose": [1600, 10.0, 54317], "crs": [1350, 2.0, 11642], "oth": [1353, 8.0, 77299]}}}, {"m": "2512", "meta": {"spend": 72104, "impr": 611233, "clicks": 35478, "purch": 50, "value": 326196}, "metaGroups": {"PP": [3091, 0, 0], "SAT": [43572, 50, 326196], "IG": [8432, 0, 0], "TOP": [17009, 0, 0]}, "london": {"spend": 12871, "impr": 95089, "clicks": 758}, "google": {"clicks": 1974, "cost": 8699.93, "impr": 33793, "conv": 18.68, "value": 128701.19, "brand": {"clicks": 1577, "cost": 6122.79, "conv": 18.64, "value": 128512.45}, "pmax": {"clicks": 397, "cost": 2577.13, "conv": 0.04, "value": 188.74}}, "ga4": {"sessions": 19581, "revenue": 647107, "orders": 85, "ch": {"ps": [8672, 19.0, 119335], "pse": [1582, 16.0, 102628], "os": [3716, 20.0, 168981], "dir": [2896, 17.0, 137821], "ose": [1528, 7.0, 53235], "crs": [412, 0.0, 0], "oth": [1158, 6.0, 65108]}}}, {"m": "2601", "meta": {"spend": 66048, "impr": 597354, "clicks": 30434, "purch": 43, "value": 359901}, "metaGroups": {"PP": [3089, 0, 0], "SAT": [43210, 43, 359901], "IG": [9277, 0, 0], "TOP": [10472, 0, 0]}, "london": {"spend": 13813, "impr": 128133, "clicks": 945}, "google": {"clicks": 1832, "cost": 9408.46, "impr": 27343, "conv": 24.41, "value": 195955.35, "brand": {"clicks": 1541, "cost": 6730.69, "conv": 24.0, "value": 194441.0}, "pmax": {"clicks": 291, "cost": 2677.77, "conv": 0.41, "value": 1514.35}}, "ga4": {"sessions": 19431, "revenue": 536537, "orders": 63, "ch": {"ps": [7726, 14.0, 84322], "pse": [1558, 16.0, 143485], "os": [3940, 5.0, 65976], "dir": [3357, 12.0, 94725], "ose": [1423, 9.0, 82408], "crs": [301, 3.0, 13147], "oth": [1110, 4.0, 52474]}}}, {"m": "2602", "meta": {"spend": 62936, "impr": 587672, "clicks": 24445, "purch": 49, "value": 355348}, "metaGroups": {"PP": [2796, 0, 0], "SAT": [41980, 49, 355348], "IG": [8400, 0, 0], "TOP": [9760, 0, 0]}, "london": {"spend": 12543, "impr": 107094, "clicks": 981}, "google": {"clicks": 1969, "cost": 10594.97, "impr": 44224, "conv": 17.9, "value": 138077.91, "brand": {"clicks": 1499, "cost": 6715.17, "conv": 15.96, "value": 120838.02}, "pmax": {"clicks": 470, "cost": 3879.8, "conv": 1.94, "value": 17239.89}}, "ga4": {"sessions": 19302, "revenue": 548249, "orders": 77, "ch": {"ps": [6703, 25.0, 150904], "pse": [1643, 12.0, 95619], "os": [3817, 9.0, 54836], "dir": [4079, 9.0, 124945], "ose": [1263, 12.0, 59138], "crs": [466, 2.0, 22360], "oth": [1103, 8.0, 40447]}}}, {"m": "2603", "meta": {"spend": 69985, "impr": 614853, "clicks": 31562, "purch": 61, "value": 572194}, "metaGroups": {"PP": [3093, 0, 0], "SAT": [46705, 61, 572194], "IG": [9321, 0, 0], "TOP": [10867, 0, 0]}, "london": {"spend": 9580, "impr": 32436, "clicks": 988}, "google": {"clicks": 3607, "cost": 23075.88, "impr": 148490, "conv": 27.54, "value": 255828.24, "brand": {"clicks": 2082, "cost": 8194.51, "conv": 23.91, "value": 234064.75}, "pmax": {"clicks": 1525, "cost": 14881.37, "conv": 3.63, "value": 21763.49}}, "ga4": {"sessions": 31129, "revenue": 1067653, "orders": 121, "ch": {"ps": [9308, 37.0, 327805], "pse": [2351, 20.0, 211458], "os": [5931, 16.0, 116725], "dir": [8307, 31.0, 274064], "ose": [2063, 6.0, 37231], "crs": [1366, 0.0, 0], "oth": [1324, 11.0, 100370]}}}, {"m": "2604", "meta": {"spend": 74594, "impr": 611014, "clicks": 31441, "purch": 69, "value": 564957}, "metaGroups": {"PP": [2971, 0, 0], "SAT": [52065, 69, 564957], "IG": [9008, 0, 0], "TOP": [10550, 0, 0]}, "london": {"spend": 9006, "impr": 25240, "clicks": 843}, "google": {"clicks": 2831, "cost": 15505.7, "impr": 64176, "conv": 38.81, "value": 254388.52, "brand": {"clicks": 2028, "cost": 7979.64, "conv": 27.81, "value": 186445.41}, "pmax": {"clicks": 803, "cost": 7526.06, "conv": 11.0, "value": 67943.11}}, "ga4": {"sessions": 26233, "revenue": 1088734, "orders": 132, "ch": {"ps": [8825, 35.0, 284800], "pse": [2162, 21.0, 159656], "os": [5907, 29.0, 233967], "dir": [4691, 17.0, 144048], "ose": [2057, 21.0, 171521], "crs": [759, 5.0, 30943], "oth": [1344, 4.0, 63799]}}}, {"m": "2605", "meta": {"spend": 94320, "impr": 666770, "clicks": 38138, "purch": 59, "value": 571538}, "metaGroups": {"PP": [4185, 0, 0], "SAT": [70082, 59, 571538], "IG": [9280, 0, 0], "TOP": [10774, 0, 0]}, "london": {"spend": 9329, "impr": 25200, "clicks": 1160}, "google": {"clicks": 5437, "cost": 26077.34, "impr": 206293, "conv": 29.81, "value": 300858.7, "brand": {"clicks": 2298, "cost": 7839.19, "conv": 23.18, "value": 251208.01}, "pmax": {"clicks": 3139, "cost": 18238.15, "conv": 6.63, "value": 49650.69}}, "ga4": {"sessions": 29657, "revenue": 1218491, "orders": 122, "ch": {"ps": [10495, 34.0, 260116], "pse": [2440, 18.0, 205519], "os": [7304, 25.0, 310143], "dir": [3426, 23.0, 269999], "ose": [2132, 13.0, 119310], "crs": [2650, 0.0, 0], "oth": [1497, 9.0, 53403]}}}, {"m": "2606", "meta": {"spend": 98855, "impr": 735889, "clicks": 43167, "purch": 36, "value": 314926}, "metaGroups": {"PP": [5936, 0, 0], "SAT": [73452, 36, 314926], "IG": [9013, 0, 0], "TOP": [10454, 0, 0]}, "london": {"spend": 9041, "impr": 25195, "clicks": 1044}, "google": {"clicks": 5622, "cost": 27821.99, "impr": 218185, "conv": 35.8, "value": 317218.43, "brand": {"clicks": 2311, "cost": 10444.22, "conv": 31.62, "value": 275743.14}, "pmax": {"clicks": 3311, "cost": 17377.77, "conv": 4.17, "value": 41475.29}}, "ga4": {"sessions": 31568, "revenue": 635023, "orders": 81, "ch": {"ps": [14290, 23.0, 183006], "pse": [2510, 20.0, 195227], "os": [6354, 11.0, 77806], "dir": [2841, 12.0, 66100], "ose": [2321, 11.0, 97940], "crs": [2752, 1.0, 8297], "oth": [1179, 3.0, 6648]}}}, {"m": "2607", "meta": {"spend": 142417, "impr": 870353, "clicks": 59055, "purch": 55, "value": 506369}, "metaGroups": {"PP": [4525, 0, 0], "SAT": [117818, 54, 498619], "IG": [9284, 0, 0], "TOP": [10790, 1, 7750]}, "london": {"spend": 9182, "impr": 27071, "clicks": 979}, "google": {"clicks": 2889, "cost": 15411.55, "impr": 55193, "conv": 19.25, "value": 199680.77, "brand": {"clicks": 2136, "cost": 10756.49, "conv": 15.01, "value": 154999.27}, "pmax": {"clicks": 753, "cost": 4655.06, "conv": 4.24, "value": 44681.49}}, "ga4": {"sessions": 43879, "revenue": 909205, "orders": 96, "ch": {"ps": [28848, 27.0, 258779], "pse": [2390, 16.0, 169389], "os": [5358, 18.0, 147020], "dir": [3988, 11.0, 112133], "ose": [2190, 16.0, 163959], "crs": [732, 2.0, 17896], "oth": [1066, 6.0, 40028]}}}, {"m": "2608", "meta": {"spend": 153174, "impr": 794175, "clicks": 54713, "purch": 47, "value": 467692}, "metaGroups": {"PP": [3093, 0, 0], "SAT": [130421, 47, 467692], "IG": [9338, 0, 0], "TOP": [10321, 0, 0]}, "london": {"spend": 9296, "impr": 28731, "clicks": 959}, "google": {"clicks": 3611, "cost": 23294.42, "impr": 108417, "conv": 34.57, "value": 384584.4, "brand": {"clicks": 2011, "cost": 10787.97, "conv": 25.57, "value": 303304.48}, "pmax": {"clicks": 1600, "cost": 12506.45, "conv": 9.0, "value": 81279.92}}, "ga4": {"sessions": 39923, "revenue": 878407, "orders": 84, "ch": {"ps": [26131, 29.0, 257735], "pse": [2321, 16.0, 232259], "os": [4948, 14.0, 150838], "dir": [2623, 9.0, 79954], "ose": [2044, 11.0, 116146], "crs": [1418, 2.0, 21695], "oth": [816, 3.0, 19779]}}}, {"m": "2609", "meta": {"spend": 146190, "impr": 586411, "clicks": 38833, "purch": 43, "value": 406120}, "metaGroups": {"PP": [2966, 0, 0], "SAT": [129818, 43, 406120], "IG": [8936, 0, 0], "TOP": [4470, 0, 0]}, "london": {"spend": 8933, "impr": 24931, "clicks": 912}, "google": {"clicks": 1947, "cost": 16342.77, "impr": 16754, "conv": 24.91, "value": 283083.36, "brand": {"clicks": 1745, "cost": 12320.8, "conv": 24.91, "value": 283083.36}, "pmax": {"clicks": 202, "cost": 4021.97, "conv": 0.0, "value": 0.0}}, "ga4": {"sessions": 28921, "revenue": 691786, "orders": 69, "ch": {"ps": [18242, 26.0, 246195], "pse": [1856, 13.0, 171701], "os": [4201, 10.0, 85194], "dir": [2237, 14.0, 150176], "ose": [1832, 5.0, 34671], "crs": [208, 0.0, 0], "oth": [520, 1.0, 3850]}}}, {"m": "2610", "meta": {"spend": 166731, "impr": 651497, "clicks": 48961, "purch": 97, "value": 912518}, "metaGroups": {"PP": [3079, 0, 0], "SAT": [152431, 97, 912518], "IG": [6903, 0, 0], "TOP": [4317, 0, 0]}, "london": {"spend": 9564, "impr": 26898, "clicks": 1261}, "google": {"clicks": 2718, "cost": 21486.1, "impr": 41921, "conv": 43.83, "value": 401502.47, "brand": {"clicks": 2237, "cost": 15406.48, "conv": 41.83, "value": 378405.47}, "pmax": {"clicks": 481, "cost": 6079.62, "conv": 2.0, "value": 23097.0}}, "ga4": {"sessions": 42280, "revenue": 1879598, "orders": 165, "ch": {"ps": [25334, 50.0, 489454], "pse": [2655, 35.0, 339957], "os": [4867, 33.0, 370564], "dir": [5077, 26.0, 356022], "ose": [2568, 13.0, 196132], "crs": [467, 2.0, 15748], "oth": [1165, 6.0, 111720]}}}, {"m": "2611", "meta": {"spend": 71222, "impr": 190076, "clicks": 14732, "purch": 36, "value": 431970}, "metaGroups": {"PP": [1108, 0, 0], "SAT": [68438, 36, 431970], "IG": [1676, 0, 0]}, "london": {"spend": 5018, "impr": 26995, "clicks": 2494}, "google": {"clicks": 952, "cost": 5820.91, "impr": 19483, "conv": 7.0, "value": 55596.0, "brand": {"clicks": 717, "cost": 3445.72, "conv": 7.0, "value": 55596.0}, "pmax": {"clicks": 235, "cost": 2375.19, "conv": 0.0, "value": 0.0}}, "ga4": {"sessions": 13772, "revenue": 635436, "orders": 58, "ch": {"ps": [8311, 26.0, 339295], "pse": [826, 9.0, 62494], "os": [1565, 11.0, 121683], "dir": [1589, 2.0, 8962], "ose": [663, 8.0, 70410], "crs": [217, 0.0, 0], "oth": [516, 2.0, 32592]}}}];
+const K = {"now": {"rev": 635436, "ord": 58, "spend": 82061}, "oct": {"rev": 733860, "ord": 72, "spend": 66652}, "ly": {"rev": 378025, "ord": 38}, "daily": [[1, 7056, 4, 22024], [2, 6853, 6, 57871], [3, 6249, 3, 31442], [4, 6378, 1, 5885], [5, 6363, 1, 7886], [6, 5613, 2, 7305], [7, 5937, 5, 33764], [8, 7814, 6, 160579], [9, 6820, 3, 30102], [10, 6268, 3, 60649], [11, 5872, 2, 14462]], "ch": {"now": {"ps": [8311, 26, 339295], "os": [1565, 11, 121683], "pse": [826, 9, 62494], "dir": [1589, 2, 8962], "ose": [663, 8, 70410], "ref": [0, 0, 0], "oth": [733, 2, 32592]}, "oct": {"ps": [8633, 26, 230192], "os": [1889, 16, 168233], "pse": [915, 15, 166377], "dir": [1027, 5, 63750], "ose": [892, 5, 67682], "ref": [0, 0, 0], "oth": [441, 5, 37623]}, "ly": {"ps": [2885, 7, 50259], "os": [1358, 7, 101412], "pse": [634, 6, 43483], "dir": [817, 7, 93954], "ose": [582, 4, 20916], "ref": [0, 0, 0], "oth": [640, 7, 67999]}}, "acc": [["Meta · Katalog satış (26W_RM)", 68438, 12571, 36, 431970, 38723], ["Meta · IG takipçi", 1676, 2123, null, null, 3353], ["Meta · Post öne çıkarma", 1108, 38, null, null, 1113], ["Meta London · Toptan (29 Eki'de taşındı)", 1651, 2215, null, null, 0], ["Meta London · Takipçi + post", 3367, 279, null, null, 3355], ["Google · Marka araması", 3446, 717, 7, 55596, 6230], ["Google · Performance Max", 2375, 235, 0, 0, 2226]], "ads": [["Kış Kapak 1 // 15 Eki", 19392, 7, 113928], ["Reels 18 Eyl Kapak", 18033, 9, 86006], ["Kış Kapak // 23 Eyl", 12903, 7, 121343], ["TR-2 // 21 Mayıs, CTA'sız (26W ürünleri)", 11938, 10, 85401], ["Kış Kapak 2", 4333, 3, 25292], ["Kış Kapak 3", 1840, 0, 0], ["26 Eylül FW2026-27", 655, 0, 0]], "findings": [
+ {"t":"g","l":"İyi","h":"Meta katalog kampanyası ciroyu taşıyor.","p":" Meta'dan siteye gelen ciro 230 bin TL'den 339 bin TL'ye çıktı (GA4, son tıklama), sipariş sayısı 26'da sabit. Meta'nın kendi ölçümünde 71 bin TL harcamaya 36 satış ve 432 bin TL satış değeri var, ROAS 6,1. Kış ürün seti ve tek ad set yapısı çalışıyor."},
+ {"t":"w","l":"İzle","h":"Meta'da maliyet ve sıklık yükseliyor.","p":" Bin gösterim maliyeti Ekim başındaki 378 TL'den 487 TL'ye çıktı (Kasım indirim dönemi rekabeti). Katalog setinde kişi başı sıklık 11 günde 4,2. Satış başı maliyet 1.219 TL'den 1.978 TL'ye çıktı. Bütçeyi şimdilik 6.100 TL/gün seviyesinde tutuyoruz. Sıklığı düşürmek için yeni kış görseli ve Reels gerekiyor, aşağıda sizden beklediklerimiz bölümünde."},
+ {"t":"g","l":"Yapıldı","h":"Google marka aramasında dönüşüm yarıya indi.","p":" Marka kampanyası tıklaması %9 azaldı ama dönüşüm 15,8'den 7'ye, dönüşüm değeri 170 bin TL'den 56 bin TL'ye düştü. GA4 tarafında da Paid Search siparişi 15'ten 9'a indi. 28 Ekim'de tıklama başı tavan 25 TL'den 12 TL'ye çekilmişti; o günden beri en üst sıradaki gösterim payı %63'ten %44'e geriledi. <b>Yaptık:</b> 12 Kasım'da tavanı 18 TL'ye çıkardık, 19 Kasım'da sonucunu ölçeceğiz. Google dönüşümleri birkaç gün geç olgunlaştığı için son günler biraz artabilir."},
+ {"t":"g","l":"Yapıldı","h":"Performance Max Kasım'da satış getirmedi.","p":" 11 günde 2.375 TL harcadı, dönüşüm 0. Kış öncesi dönemde de PMax'in aylık getirisi düşüktü. <b>Yaptık:</b> 12 Kasım'da günlük bütçeyi 200 TL'den 100 TL'ye indirdik; kampanyayı kapatmadık, öğrenmesi bozulmasın diye. 26 Kasım'a kadar satış getirmezse durdurmayı önereceğiz, Black Friday haftası için kararı birlikte verelim."},
+ {"t":"w","l":"İzle","h":"Direct kanalı sessizleşti.","p":" Direct'ten gelen sipariş 5'ten 2'ye, ciro 64 bin TL'den 9 bin TL'ye düştü. Direct genellikle mağaza, WhatsApp ve tekrar gelen müşteriden beslenir; bunun reklam tarafında karşılığı yok. Mağaza, WhatsApp ya da CRM tarafında bu tarihlerde bir değişiklik olduysa bize iletirseniz yorumlayabiliriz."},
+ {"t":"i","l":"Bilgi","h":"London hesabında toptan kampanyası siteye trafik getiriyor, satış ölçülmüyor.","p":" Toptan kampanyası 29 Ekim'de London hesabına taşındı. 11 günde 1.651 TL ile 2.215 tıklama ve 1.315 sayfa görüntüleme getirdi. Bu hesapta satış ya da toptan başvurusu ölçülmediği için getirisini göremiyoruz. Toptan başvurusunu ölçmek için başvurunun nereye düştüğünü (form, WhatsApp, e-posta) öğrenmemiz gerekiyor."}
+], "summary": "İlk 11 günde sitede <b>58 sipariş ve 635.436 TL ciro</b> oluştu. Bu, geçen yılın aynı günlerinin <b>%68 üzerinde</b>. Ekim'in rekor açılışına göre ciro %13, sipariş %19 geride; ortalama sepet 10.193 TL'den 10.956 TL'ye çıktı. Bu hızla Kasım yaklaşık <b>1,7 milyon TL</b> ile kapanır, bu da Ekim'den sonraki en iyi ay olur. Geride kalan kısım Meta'dan değil, Google marka araması ve Direct kanalından geliyor: GA4'e göre Meta'dan gelen ciro Ekim'in ilk 11 gününe göre <b>%47 arttı</b>."};
+const AY=['Oca','Şub','Mar','Nis','May','Haz','Tem','Ağu','Eyl','Eki','Kas','Ara'];
+const lab=m=>AY[+m.slice(2)-1]+' '+m.slice(0,2);
+const tl=n=>Math.round(n).toLocaleString('tr-TR')+' TL';
+const nf=(n,d=0)=>Number(n).toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const kTL=n=>n>=1e6?nf(n/1e6,2)+' M TL':n>=1e4?nf(n/1e3,0)+' B TL':nf(n,0)+' TL';
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const pct=(a,b)=>b?((a-b)/b*100):0;
+function chip(a,b,inv){if(!b)return '';const p=pct(a,b);const c=Math.abs(p)<3?'flat':((p>0)!==!!inv?'up':'down');return `<span class="chip ${c}">${p>0?'+':''}${nf(p,0)}%</span>`}
+const tip=document.getElementById('tip');
+function showTip(host,x,y,html){tip.innerHTML=html;tip.hidden=false;const r=host.getBoundingClientRect();let L=r.left+window.scrollX+x;const w=tip.offsetWidth;L=Math.max(window.scrollX+w/2+8,Math.min(L,window.scrollX+document.documentElement.clientWidth-w/2-8));tip.style.left=L+'px';tip.style.top=(r.top+window.scrollY+y-10)+'px'}
+function hideTip(){tip.hidden=true}
+
+/* derived monthly */
+DATA.forEach(r=>{r.spend=r.meta.spend+r.london.spend+r.google.cost;r.revenue=r.ga4.revenue;r.orders=r.ga4.orders;r.sessions=r.ga4.sessions;r.mer=r.revenue/r.spend;r.aov=r.revenue/r.orders;r.metaRoas=r.meta.value/r.meta.spend;r.gRoas=r.google.cost?r.google.value/r.google.cost:0});
+
+/* ---------- generic bar/line chart (SVG) ---------- */
+function niceMax(v){if(v<=0)return 1;const e=Math.pow(10,Math.floor(Math.log10(v)));const f=v/e;return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*e}
+function chart(el,{labels,series,stacked=true,type='bar',fmt=kTL,height=260,tipExtra}){
+  const W=Math.max(320,el.clientWidth||700),H=height,pl=58,pr=10,pt=12,pb=28;const iw=W-pl-pr,ih=H-pt-pb;const n=labels.length;
+  const vis=series.filter(s=>!s.off);
+  let mx=0;labels.forEach((_,i)=>{const v=stacked&&type==='bar'?vis.reduce((a,s)=>a+(s.values[i]||0),0):Math.max(0,...vis.map(s=>s.values[i]||0));mx=Math.max(mx,v)});
+  const top=niceMax(mx||1);const y=v=>pt+ih-(v/top)*ih;const bw=iw/n;
+  let g='';for(let k=0;k<=4;k++){const v=top*k/4;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="${css('--line')}" stroke-width="1"/><text x="${pl-8}" y="${y(v)+4}" text-anchor="end">${fmt(v,true)}</text>`}
+  const step=n>16?(W<600?4:2):(W<500&&n>8?2:1);
+  labels.forEach((l,i)=>{if(i%step===0)g+=`<text x="${pl+bw*i+bw/2}" y="${H-8}" text-anchor="middle">${l}</text>`});
+  let m='';
+  if(type==='bar'){const gap=Math.min(6,bw*.25);const w=Math.max(2,(bw-gap)/(stacked?1:vis.length));
+    labels.forEach((_,i)=>{let acc=0;vis.forEach((s,j)=>{const v=s.values[i]||0;if(v<=0)return;const x=pl+bw*i+gap/2+(stacked?0:j*w);const y0=stacked?y(acc):y(0);const y1=stacked?y(acc+v):y(v);acc+=stacked?v:0;const h=Math.max(0,y0-y1);m+=`<rect x="${x}" y="${y1}" width="${Math.max(1,w-(stacked?0:1))}" height="${h}" rx="${Math.min(3,w/3)}" fill="${css(s.color)}" stroke="${css('--panel')}" stroke-width="${stacked?1:0}"/>`})})}
+  else{vis.forEach(s=>{let d='';s.values.forEach((v,i)=>{const x=pl+bw*i+bw/2;d+=(i?'L':'M')+x+','+y(v||0)});m+=`<path d="${d}" fill="none" stroke="${css(s.color)}" stroke-width="2" stroke-linejoin="round"/>`;s.values.forEach((v,i)=>{m+=`<circle cx="${pl+bw*i+bw/2}" cy="${y(v||0)}" r="3.5" fill="${css(s.color)}" stroke="${css('--panel')}" stroke-width="2"/>`})})}
+  let hit='';labels.forEach((_,i)=>{hit+=`<rect class="hit" data-i="${i}" x="${pl+bw*i}" y="${pt}" width="${bw}" height="${ih}" fill="transparent"/>`});
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="grafik">${g}${m}<line class="cross" x1="0" x2="0" y1="${pt}" y2="${pt+ih}" stroke="${css('--ink-3')}" stroke-dasharray="3 3" opacity="0"/>${hit}</svg>`;
+  const svg=el.querySelector('svg'),cross=svg.querySelector('.cross');
+  svg.querySelectorAll('.hit').forEach(h=>{const i=+h.dataset.i;const on=()=>{const x=pl+bw*i+bw/2;cross.setAttribute('x1',x);cross.setAttribute('x2',x);cross.setAttribute('opacity','.6');const sc=el.clientWidth/W;let html=`<b>${labels[i]}</b>`;vis.forEach(s=>{html+=`<br><span class="sw" style="background:${css(s.color)}"></span> ${s.name}: ${fmt(s.values[i]||0)}`});if(stacked&&type==='bar'&&vis.length>1)html+=`<br>Toplam: ${fmt(vis.reduce((a,s)=>a+(s.values[i]||0),0))}`;if(tipExtra)html+=tipExtra(i);showTip(el,x*sc,pt*sc,html)};h.addEventListener('mouseenter',on);h.addEventListener('mousemove',on);h.addEventListener('mouseleave',()=>{cross.setAttribute('opacity','0');hideTip()})});
+}
+function legend(el,series,redraw){el.innerHTML=series.map((s,i)=>`<label><input type="checkbox" id="${el.id}-${i}" ${s.off?'':'checked'}><span class="sw" style="background:${css(s.color)}"></span>${s.name}</label>`).join('');el.querySelectorAll('input').forEach((c,i)=>c.addEventListener('change',()=>{series[i].off=!c.checked;redraw()}))}
+function segInit(id,cb){const el=document.getElementById(id);if(el.dataset.init){el._cb=cb;return}el.dataset.init=1;el._cb=cb;el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{el.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));el._cb(b.dataset.k||b.dataset.r)}));}
+function sortable(t){t.querySelectorAll('th').forEach((th,ci)=>{th.setAttribute('aria-sort','none');th.addEventListener('click',()=>{const dir=th.getAttribute('aria-sort')==='descending'?'ascending':'descending';t.querySelectorAll('th').forEach(x=>x.setAttribute('aria-sort','none'));th.setAttribute('aria-sort',dir);const tb=t.tBodies[0];const rows=[...tb.rows];rows.sort((a,b)=>{const va=a.cells[ci].dataset.v,vb=b.cells[ci].dataset.v;const r=(isNaN(va)||isNaN(vb))?String(va).localeCompare(vb):va-vb;return dir==='ascending'?r:-r});rows.forEach(r=>tb.appendChild(r))})})}
+function table(t,cols,rows,tot){t.innerHTML=`<thead><tr>${cols.map(c=>`<th scope="col">${c.h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${cols.map(c=>{const v=c.v(r);return `<td data-v="${typeof v==='number'?v:v}">${c.f?c.f(v,r):v}</td>`}).join('')}</tr>`).join('')}</tbody>${tot?`<tfoot><tr class="tot">${cols.map(c=>`<td>${c.t?c.t():''}</td>`).join('')}</tr></tfoot>`:''}`;sortable(t)}
+
+/* ================= KASIM VIEW ================= */
+function renderKasim(){
+  const k=K;
+  const tiles=[
+    ['Site cirosu (GA4)',tl(k.now.rev),[[k.now.rev,k.oct.rev,'Eki 1-11'],[k.now.rev,k.ly.rev,'Kas 2025']]],
+    ['Sipariş',nf(k.now.ord),[[k.now.ord,k.oct.ord,'Eki 1-11'],[k.now.ord,k.ly.ord,'Kas 2025']]],
+    ['Toplam reklam harcaması',tl(k.now.spend),[[k.now.spend,k.oct.spend,'Eki 1-11',1]]],
+    ['Harcama verimi',nf(k.now.rev/k.now.spend,2)+'×',[[k.now.rev/k.now.spend,k.oct.rev/k.oct.spend,'Eki 1-11']]],
+    ['Ortalama sepet',tl(k.now.rev/k.now.ord),[[k.now.rev/k.now.ord,k.oct.rev/k.oct.ord,'Eki 1-11']]],
+    ['Ay sonu tahmini ciro',kTL(k.now.rev/11*30),[[k.now.rev/11*30,1879598,'Ekim tamamı'],[k.now.rev/11*30,926518,'Kas 2025']]]
+  ];
+  document.getElementById('kpiK').innerHTML=tiles.map(([l,v,c])=>`<div class="kpi"><span class="lab">${l}</span><span class="val">${v}</span><span class="cmp">${c.map(x=>`${chip(x[0],x[1],x[3])} ${x[2]}`).join(' · ')}</span></div>`).join('');
+  document.getElementById('kSummary').innerHTML=k.summary;
+  document.getElementById('kFind').innerHTML=k.findings.map(f=>`<li><span class="tag ${f.t}">${f.l}</span><p><strong>${f.h}</strong>${f.p}</p></li>`).join('');
+  /* daily */
+  const pr=id=>{const b=document.querySelector('#'+id+' [aria-pressed="true"]');return b?(b.dataset.k||b.dataset.r):null};let dk=pr('segDaily')||'value';const days=k.daily.map(d=>d[0]+' Kas');
+  const drawDaily=()=>{const el=document.getElementById('chDaily');
+    const wrap=el;wrap.innerHTML='<div id="d1"></div><div id="d2"></div>';
+    const vals=k.daily.map(d=>dk==='value'?d[3]:dk==='purch'?d[2]:d[3]/d[1]);
+    const f=dk==='value'?kTL:dk==='purch'?(v=>nf(v,0)):(v=>nf(v,1)+'×');
+    chart(document.getElementById('d1'),{labels:days,series:[{name:dk==='value'?'Satış değeri':dk==='purch'?'Satış':'ROAS',color:'--accent',values:vals}],type:'line',fmt:f,height:180});
+    chart(document.getElementById('d2'),{labels:days,series:[{name:'Harcama',color:'--ink-3',values:k.daily.map(d=>d[1])}],fmt:kTL,height:130});};
+  segInit('segDaily',v=>{dk=v;drawDaily()});drawDaily();
+  /* channels */
+  let ci=+(pr('segKch')||2);const names={ps:'Paid Social (Meta)',os:'Organik sosyal',pse:'Paid Search (Google)',dir:'Direct',ose:'Organik arama',ref:'Referral',oth:'Diğer'};
+  const drawCh=()=>{const rows=Object.keys(names);const mx=Math.max(...rows.flatMap(r=>[k.ch.now[r][ci],k.ch.oct[r][ci],k.ch.ly[r][ci]]));const f=ci==2?kTL:(v=>nf(v));
+    document.getElementById('kCh').innerHTML=rows.map(r=>`<div class="bar-row"><span>${names[r]}</span><div style="display:flex;flex-direction:column;gap:3px">${[['now','--accent'],['oct','--ink-3'],['ly','--line']].map(([p,c])=>`<div class="trk" title="${p}"><div class="fill" style="width:${k.ch[p][r][ci]/mx*100}%;background:var(${c})${p==='ly'?';outline:1px solid var(--ink-3);outline-offset:-1px':''}"></div></div>`).join('')}</div><span class="v">${f(k.ch.now[r][ci])}<br><span style="color:var(--ink-3)">${f(k.ch.oct[r][ci])}</span></span></div>`).join('')};
+  segInit('segKch',v=>{ci=+v;drawCh()});drawCh();
+  /* account table */
+  table(document.getElementById('tKacc'),[
+    {h:'Hesap / kampanya',v:r=>r[0]},{h:'Harcama',v:r=>r[1],f:v=>tl(v)},{h:'Pay',v:r=>r[1]/k.now.spend*100,f:v=>nf(v,1)+'%'},{h:'Tıklama',v:r=>r[2],f:v=>nf(v)},{h:'Satış / dönüşüm',v:r=>r[3],f:v=>v===null?'ölçülmüyor':nf(v,0)},{h:'Platform satış değeri',v:r=>r[4],f:v=>v===null?'':tl(v)},{h:'ROAS',v:r=>r[4]?r[4]/r[1]:0,f:v=>v?nf(v,2)+'×':''},{h:'Eki 1-11 harcama',v:r=>r[5],f:v=>v===null?'':tl(v)}
+  ],k.acc,true);
+  table(document.getElementById('tKads'),[
+    {h:'Meta katalog reklamı (26W_RM)',v:r=>r[0]},{h:'Harcama',v:r=>r[1],f:v=>tl(v)},{h:'Satış',v:r=>r[2],f:v=>nf(v)},{h:'Satış değeri',v:r=>r[3],f:v=>tl(v)},{h:'ROAS',v:r=>r[1]?r[3]/r[1]:0,f:v=>nf(v,2)+'×'},{h:'Satış başı maliyet',v:r=>r[2]?r[1]/r[2]:0,f:v=>v?tl(v):'satış yok'}
+  ],k.ads);
+}
+
+/* ================= GIDISAT VIEW ================= */
+let range='all';
+const rows=()=>DATA.filter(r=>range==='all'||r.m.startsWith(range));
+function sum(rs,f){return rs.reduce((a,r)=>a+f(r),0)}
+function renderG(){
+  const rs=rows();const sp=sum(rs,r=>r.spend),rev=sum(rs,r=>r.revenue),ord=sum(rs,r=>r.orders),ses=sum(rs,r=>r.sessions);
+  const best=rs.reduce((a,r)=>r.revenue>a.revenue?r:a,rs[0]);
+  document.getElementById('kpiG').innerHTML=[
+    ['Site cirosu',kTL(rev),`${rs.length} ay`],['Sipariş',nf(ord),`ortalama sepet ${tl(rev/ord)}`],['Reklam harcaması',kTL(sp),`Meta ${nf(sum(rs,r=>r.meta.spend+r.london.spend)/sp*100,0)}% · Google ${nf(sum(rs,r=>r.google.cost)/sp*100,0)}%`],['Harcama verimi',nf(rev/sp,2)+'×','ciro / toplam harcama'],['En iyi ay',lab(best.m),`${kTL(best.revenue)} · ${best.orders} sipariş`],['Oturum',nf(ses),'GA4, bot dahil']
+  ].map(([l,v,c])=>`<div class="kpi"><span class="lab">${l}</span><span class="val">${v}</span><span class="cmp">${c}</span></div>`).join('');
+  document.getElementById('gSummary').innerHTML=G_SUM[range];
+  drawMain();drawSpend();drawCh();drawTbl();
+}
+const MET={revenue:{t:'Aylık site cirosu',f:kTL,v:r=>r.revenue,n:'GA4 toplam ciro (iade düşülmemiş).'},orders:{t:'Aylık sipariş adedi',f:v=>nf(v),v:r=>r.orders,n:'GA4 satın alma olayı.'},spend:{t:'Aylık toplam reklam harcaması',f:kTL,v:r=>r.spend,n:'Meta ana + Meta London + Google Ads.'},mer:{t:'Harcama verimi (ciro / harcama)',f:v=>nf(v,1)+'×',v:r=>r.mer,line:1,n:'1 TL reklam harcamasına karşılık sitede oluşan ciro. Mağaza ve organik etkiyi de içerir.'},aov:{t:'Ortalama sepet',f:tl,v:r=>r.aov,line:1,n:'GA4 ciro / sipariş.'},sessions:{t:'Aylık oturum',f:v=>nf(v),v:r=>r.sessions,n:'GA4. Haziran-Ekim 2026 arası Singapur bot trafiği oturumları şişiriyor.'},metaRoas:{t:'Meta ROAS (ana hesap, Meta atfı)',f:v=>nf(v,2)+'×',v:r=>r.metaRoas,line:1,n:'Meta piksel satış değeri / Meta ana hesap harcaması. London hesabı dahil değil.'},gRoas:{t:'Google ROAS (Google atfı)',f:v=>nf(v,1)+'×',v:r=>r.gRoas,line:1,n:'Google dönüşüm değeri / Google harcaması. Ağırlıkla marka araması olduğu için yüksek.'}};
+function drawMain(){const k=document.getElementById('selMetric').value,M=MET[k],rs=rows();document.getElementById('gMainTitle').textContent=M.t;document.getElementById('nMain').textContent=M.n;document.getElementById('lgMain').innerHTML='';
+  chart(document.getElementById('chMain'),{labels:rs.map(r=>lab(r.m)),series:[{name:M.t,color:'--accent',values:rs.map(M.v)}],type:M.line?'line':'bar',fmt:M.f,height:280,tipExtra:i=>{const r=rs[i];return `<br>Harcama: ${kTL(r.spend)} · Verim ${nf(r.mer,1)}×`}});}
+let spK='acc';const SP={acc:[{name:'Meta ana',color:'--s1',f:r=>r.meta.spend},{name:'Meta London',color:'--s3',f:r=>r.london.spend},{name:'Google Ads',color:'--s2',f:r=>r.google.cost}],
+ meta:[{name:'Satış / katalog',color:'--s1',f:r=>(r.metaGroups.SAT||[0])[0]},{name:'IG takipçi',color:'--s2',f:r=>(r.metaGroups.IG||[0])[0]},{name:'Toptan (ana hesapta)',color:'--s3',f:r=>(r.metaGroups.TOP||[0])[0]},{name:'Post öne çıkarma',color:'--s4',f:r=>(r.metaGroups.PP||[0])[0]},{name:'Trafik',color:'--s7',f:r=>(r.metaGroups.TRF||[0])[0]}],
+ goo:[{name:'Marka araması',color:'--s1',f:r=>r.google.brand?r.google.brand.cost:0},{name:'Performance Max',color:'--s2',f:r=>r.google.pmax?r.google.pmax.cost:0},{name:'Eski kampanyalar',color:'--s3',f:r=>r.google.brand?Math.max(0,r.google.cost-r.google.brand.cost-r.google.pmax.cost):r.google.cost}]};
+function drawSpend(){const rs=rows();const ser=SP[spK].map(s=>({...s,values:rs.map(s.f)}));const redraw=()=>chart(document.getElementById('chSpend'),{labels:rs.map(r=>lab(r.m)),series:ser,fmt:kTL});legend(document.getElementById('lgSpend'),ser,redraw);redraw();}
+let chI=2;const CHN=[['ps','Paid Social','--s1'],['pse','Paid Search','--s2'],['os','Organik sosyal','--s3'],['dir','Direct','--s4'],['ose','Organik arama','--s5'],['crs','Cross-network','--s6'],['oth','Diğer','--s7']];
+function drawCh(){const rs=rows();const ser=CHN.map(([c,n,col])=>({name:n,color:col,values:rs.map(r=>r.ga4.ch[c][chI])}));const f=chI==2?kTL:(v=>nf(v));const redraw=()=>chart(document.getElementById('chCh'),{labels:rs.map(r=>lab(r.m)),series:ser,fmt:f});legend(document.getElementById('lgCh'),ser,redraw);redraw();}
+let tK='ozet';
+function drawTbl(){const rs=rows(),t=document.getElementById('tMon');const L={h:'Ay',v:r=>r.m,f:(v,r)=>lab(r.m)+(r.m==='2611'?' (1-11)':'')};
+ const S=(f)=>()=>'';let cols;
+ if(tK==='ozet')cols=[L,{h:'Ciro',v:r=>r.revenue,f:tl,t:()=>tl(sum(rs,r=>r.revenue))},{h:'Sipariş',v:r=>r.orders,f:v=>nf(v),t:()=>nf(sum(rs,r=>r.orders))},{h:'Ort. sepet',v:r=>r.aov,f:tl},{h:'Harcama',v:r=>r.spend,f:tl,t:()=>tl(sum(rs,r=>r.spend))},{h:'Verim',v:r=>r.mer,f:v=>nf(v,2)+'×',t:()=>nf(sum(rs,r=>r.revenue)/sum(rs,r=>r.spend),2)+'×'},{h:'Sipariş başı harcama',v:r=>r.spend/r.orders,f:tl,t:()=>tl(sum(rs,r=>r.spend)/sum(rs,r=>r.orders))},{h:'Oturum',v:r=>r.sessions,f:v=>nf(v)}];
+ if(tK==='meta')cols=[L,{h:'Ana hesap harcama',v:r=>r.meta.spend,f:tl,t:()=>tl(sum(rs,r=>r.meta.spend))},{h:'Gösterim',v:r=>r.meta.impr,f:v=>nf(v)},{h:'Link tık',v:r=>r.meta.clicks,f:v=>nf(v)},{h:'BGBM',v:r=>r.meta.spend/r.meta.impr*1000,f:tl},{h:'Satış',v:r=>r.meta.purch,f:v=>nf(v),t:()=>nf(sum(rs,r=>r.meta.purch))},{h:'Satış değeri',v:r=>r.meta.value,f:tl,t:()=>tl(sum(rs,r=>r.meta.value))},{h:'ROAS',v:r=>r.metaRoas,f:v=>nf(v,2)+'×',t:()=>nf(sum(rs,r=>r.meta.value)/sum(rs,r=>r.meta.spend),2)+'×'},{h:'Satış başı',v:r=>r.meta.purch?r.meta.spend/r.meta.purch:0,f:tl},{h:'London harcama',v:r=>r.london.spend,f:tl,t:()=>tl(sum(rs,r=>r.london.spend))}];
+ if(tK==='google')cols=[L,{h:'Harcama',v:r=>r.google.cost,f:tl,t:()=>tl(sum(rs,r=>r.google.cost))},{h:'Tık',v:r=>r.google.clicks,f:v=>nf(v)},{h:'TBM',v:r=>r.google.cost/r.google.clicks,f:v=>nf(v,2)+' TL'},{h:'Dönüşüm',v:r=>r.google.conv,f:v=>nf(v,1),t:()=>nf(sum(rs,r=>r.google.conv),1)},{h:'Dönüşüm değeri',v:r=>r.google.value,f:tl,t:()=>tl(sum(rs,r=>r.google.value))},{h:'ROAS',v:r=>r.gRoas,f:v=>nf(v,1)+'×'},{h:'Marka harcama',v:r=>r.google.brand?r.google.brand.cost:0,f:tl},{h:'Marka dnş',v:r=>r.google.brand?r.google.brand.conv:0,f:v=>nf(v,1)},{h:'PMax harcama',v:r=>r.google.pmax?r.google.pmax.cost:0,f:tl},{h:'PMax dnş',v:r=>r.google.pmax?r.google.pmax.conv:0,f:v=>nf(v,1)}];
+ if(tK==='ga4')cols=[L].concat(CHN.flatMap(([c,n])=>[{h:n+' ciro',v:r=>r.ga4.ch[c][2],f:tl},{h:n+' sip.',v:r=>r.ga4.ch[c][1],f:v=>nf(v)}]));
+ table(t,cols,rs,tK!=='ga4');}
+
+const G_SUM={"all": "23 ayda sitede <b>17,2 milyon TL ciro ve 1.907 sipariş</b> oluştu, üç reklam hesabına toplam 2,09 milyon TL harcandı. 2026'nın ilk 10,4 ayı 2025'in tamamını ciroda %42, siparişte %27 geçti. Harcama daha hızlı arttığı için 1 TL reklam başına ciro 11,1'den 7,0'a indi. En düşük verim Haziran-Eylül 2026'da, en yüksek ay Ekim 2026.", "25": "2025'te <b>7,08 milyon TL ciro ve 839 sipariş</b>. Reklam harcaması 638 bin TL, 1 TL reklam başına 11,1 TL ciro. Google marka araması ve PMax Mayıs 2025'te açıldı; Meta harcaması Eylül'den itibaren 60 bin TL/ay seviyesine çıktı ve Eylül-Kasım 2025 yılın en güçlü dönemi oldu.", "26": "2026'da 11 Kasım'a kadar <b>10,09 milyon TL ciro ve 1.068 sipariş</b>. Harcama 1,45 milyon TL. Bahar sezonu (Mart-Mayıs) 1,07-1,22 milyon TL ile güçlüydü. Yaz aylarında harcama 186 bin TL'ye kadar çıkarken ciro geriledi. Ekim'de 1,88 milyon TL ve 165 siparişle hesap tarihinin en iyi ayı geldi."};
+document.getElementById('gFind').innerHTML=([{"t": "i", "l": "Oca-Nis 25", "h": "Düşük bütçeli dönem.", "p": " Meta ayda 18-32 bin TL, Google ayda 3 bin TL. Aylık ciro 270-605 bin TL. Verim yüksek görünür çünkü cironun büyük kısmı organik sosyal, Direct ve organik aramadan geliyor."}, {"t": "i", "l": "May-Ağu 25", "h": "Google marka ve PMax açıldı.", "p": " Mayıs 2025'te Branding_TR_May25 ve Pmax_TR_May25 kuruldu, Haziran'da Google harcaması 23 bin TL'ye çıktı. Marka araması her ay 10-30 dönüşüm getirirken PMax o dönemde neredeyse hiç satış yazmadı."}, {"t": "g", "l": "Eyl-Kas 25", "h": "Meta büyüdü, ciro takip etti.", "p": " Meta ana hesap 36 binden 65 bin TL'ye çıktı, aylık ciro 817-927 bin TL'ye yükseldi, sipariş 94-105. 2025'in zirvesi Kasım."}, {"t": "w", "l": "Ara 25-Şub 26", "h": "Kış sonu yavaşlaması.", "p": " Harcama 86-94 bin TL'de kalırken ciro 536-648 bin TL'ye indi, verim 6-7'ye düştü. Sezon sonu dönemine özgü bir düşüş."}, {"t": "g", "l": "Mar-May 26", "h": "Bahar sezonu güçlü.", "p": " Aylık 1,07-1,22 milyon TL ciro ve 121-132 sipariş. Meta ROAS 6-8 bandında."}, {"t": "b", "l": "Haz-Eyl 26", "h": "Harcama arttı, ciro düştü.", "p": " Meta ana hesap 99 binden 153 bin TL'ye çıktı ama ciro 635-909 bin TL'de kaldı; 1 TL reklam başına ciro 4-5,4 ile 23 ayın en düşük seviyesinde. Meta ROAS 2,8-3,6. Katalogda yaz ve geçmiş sezon ürünleri karışıktı, kampanyalar yaz iletişimiyle sürüyordu."}, {"t": "g", "l": "Eki 26", "h": "Kış lansmanı ve temizlik sonrası rekor.", "p": " Kış ürün seti, tek katalog ad seti, yaz kreatiflerinin kaldırılması ve PMax'te kış dışı ürünlerin hariç tutulmasıyla Ekim'de 1,88 milyon TL ciro ve 165 sipariş. Meta ROAS Eylül'deki 2,8'den 5,5'e çıktı, toplam verim 4,0'dan 9,5'e yükseldi."}, {"t": "i", "l": "Satış dışı", "h": "Her ay yaklaşık 30 bin TL satış hedefi olmayan kampanyalara gidiyor.", "p": " 2026'da IG takipçi ~9 bin TL/ay, toptan ~10 bin TL/ay, London hesabı ~9 bin TL/ay, post öne çıkarma ~3 bin TL/ay. Bunların satışa etkisi ölçülmüyor. Marka bilinirliği ve toptan için bilinçli tercih ise sorun yok; yine de toptan başvurusunun ölçülmesi faydalı olur."}]).map(f=>`<li><span class="tag ${f.t}">${f.l}</span><p><strong>${f.h}</strong>${f.p}</p></li>`).join('');
+
+segInit('segRange',v=>{range=v;renderG()});
+document.getElementById('selMetric').addEventListener('change',drawMain);
+segInit('segSpend',v=>{spK=v;drawSpend()});
+segInit('segChM',v=>{chI=+v;drawCh()});
+segInit('segTbl',v=>{tK=v;drawTbl()});
+
+/* routing */
+let gDone=false,kDone=false;
+function route(){const v=location.hash==='#gidisat'?'gidisat':'kasim';
+  document.getElementById('v-kasim').hidden=v!=='kasim';document.getElementById('v-gidisat').hidden=v!=='gidisat';
+  document.getElementById('tab-kasim').setAttribute('aria-current',v==='kasim'?'page':'false');document.getElementById('tab-gidisat').setAttribute('aria-current',v==='gidisat'?'page':'false');
+  document.getElementById('pageTitle').textContent=v==='kasim'?'Kasım 2026 ara raporu':'Ocak 2025 - Kasım 2026 aylık gidişat';
+  document.getElementById('pageSub').textContent=v==='kasim'?'1-11 Kasım 2026, okuma 12 Kasım 2026 sabahı. Kaynaklar: Meta Reklam Yöneticisi, Google Ads, GA4.':'1 Ocak 2025 - 11 Kasım 2026, 23 ay. Meta ana hesap, Meta London, Google Ads ve GA4 aylık verisi.';
+  if(v==='kasim'&&!kDone){renderKasim();kDone=true}if(v==='gidisat'&&!gDone){renderG();gDone=true}}
+window.addEventListener('hashchange',route);route();
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{kDone=gDone=false;route()},200)});
+new MutationObserver(()=>{kDone=gDone=false;route()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+</script>
+
+</body>
+</html>
